@@ -2,7 +2,11 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.util.Random;
 
@@ -19,40 +23,39 @@ public class Controller {
     public Button bt9;
     public Button spin;
     public Random rd = new Random();
+    public int [] num = new int[10] ;
 
 
 
     public void Spin (ActionEvent event){
-        bt0.setText(Integer.toString(rd.nextInt(10)));
-        bt1.setText(Integer.toString(rd.nextInt(10)));
-        bt2.setText(Integer.toString(rd.nextInt(10)));
-        bt3.setText(Integer.toString(rd.nextInt(10)));
-        bt4.setText(Integer.toString(rd.nextInt(10)));
-        bt5.setText(Integer.toString(rd.nextInt(10)));
-        bt6.setText(Integer.toString(rd.nextInt(10)));
-        bt7.setText(Integer.toString(rd.nextInt(10)));
-        bt8.setText(Integer.toString(rd.nextInt(10)));
-        bt9.setText(Integer.toString(rd.nextInt(10)));
         for (int i = 0 ; i < 10 ; i ++){
-            if (bt1.getText().equals(bt0.getText())){
-                bt1.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt2.getText().equals(bt0.getText()) || bt2.getText().equals(bt1.getText())){
-                bt2.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt3.getText().equals(bt0.getText()) || bt3.getText().equals(bt1.getText()) || bt3.getText().equals(bt2.getText())){
-                bt3.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt4.getText().equals(bt0.getText()) || bt4.getText().equals(bt1.getText()) || bt4.getText().equals(bt2.getText()) || bt4.getText().equals(bt3.getText())){
-                bt4.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt5.getText().equals(bt0.getText()) || bt5.getText().equals(bt1.getText()) || bt5.getText().equals(bt2.getText()) || bt5.getText().equals(bt3.getText()) || bt5.getText().equals(bt4.getText())){
-                bt5.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt6.getText().equals(bt0.getText()) || bt6.getText().equals(bt1.getText()) || bt6.getText().equals(bt2.getText()) || bt6.getText().equals(bt3.getText()) || bt6.getText().equals(bt4.getText()) || bt6.getText().equals(bt5.getText())){
-                bt6.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt7.getText().equals(bt0.getText()) || bt7.getText().equals(bt1.getText()) || bt7.getText().equals(bt2.getText()) || bt7.getText().equals(bt3.getText()) || bt7.getText().equals(bt4.getText()) || bt7.getText().equals(bt5.getText()) || bt7.getText().equals(bt6.getText())){
-                bt7.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt8.getText().equals(bt0.getText()) || bt8.getText().equals(bt1.getText()) || bt8.getText().equals(bt2.getText()) || bt8.getText().equals(bt3.getText()) || bt8.getText().equals(bt4.getText()) || bt8.getText().equals(bt5.getText()) || bt8.getText().equals(bt6.getText()) || bt8.getText().equals(bt7.getText())){
-                bt8.setText(Integer.toString(rd.nextInt(10)));
-            }else if (bt9.getText().equals(bt0.getText()) || bt9.getText().equals(bt1.getText()) || bt9.getText().equals(bt2.getText()) || bt9.getText().equals(bt3.getText()) || bt9.getText().equals(bt4.getText()) || bt9.getText().equals(bt5.getText()) || bt9.getText().equals(bt6.getText()) || bt9.getText().equals(bt7.getText()) || bt9.getText().equals(bt8.getText())){
-                bt9.setText(Integer.toString(rd.nextInt(10)));
+            num[i] = rd.nextInt(10);
+            for (int j = 0 ; j < i ; j ++ ){
+                if (num[i] == num[j]){
+                    num[i] = rd.nextInt(10);
+                    j = -1 ;
+                }
             }
+        }
+        bt0.setText(Integer.toString(num[0]));
+        bt1.setText(Integer.toString(num[1]));
+        bt2.setText(Integer.toString(num[2]));
+        bt3.setText(Integer.toString(num[3]));
+        bt4.setText(Integer.toString(num[4]));
+        bt5.setText(Integer.toString(num[5]));
+        bt6.setText(Integer.toString(num[6]));
+        bt7.setText(Integer.toString(num[7]));
+        bt8.setText(Integer.toString(num[8]));
+        bt9.setText(Integer.toString(num[9]));
+
+        try {
+            Parent anotherRoot = FXMLLoader.load(getClass().getResource("new.fxml"));
+            Stage anotherStage = new Stage();
+            anotherStage.setTitle("Another Window Triggered by Clicking");
+            anotherStage.setScene(new Scene(anotherRoot, 600, 329));
+            anotherStage.show();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
